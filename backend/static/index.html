@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teaching Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1>◈ Teaching Assistant</h1>
+      <p class="sub">RAG-powered tutor</p>
+      <label>Mode</label>
+      <select id="mode">
+        <option value="explain">Explain</option>
+        <option value="socratic">Socratic</option>
+        <option value="quiz">Quiz</option>
+      </select>
+      <div id="stats" class="stats"></div>
+      <input type="file" id="file" accept=".pdf,.txt,.md" hidden />
+      <button id="upload">Upload material</button>
+      <button id="samples" class="ghost">Reload samples</button>
+      <button id="clear" class="danger ghost">Clear index</button>
+    </aside>
+    <main>
+      <div id="messages" class="messages"></div>
+      <form id="form" class="composer">
+        <textarea id="input" rows="2" placeholder="Ask about your course…"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
