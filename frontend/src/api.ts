@@ -21,7 +21,7 @@ export interface Status {
 }
 
 export async function fetchStatus(): Promise<Status> {
-  const res = await fetch("/api/status");
+  const res = await fetch((import.meta.env.VITE_API_URL || "") + "/api/status");
   if (!res.ok) throw new Error("Failed to load status");
   return res.json();
 }
@@ -31,7 +31,7 @@ export async function sendChat(
   mode: TeachingMode,
   history: { role: string; content: string }[]
 ): Promise<{ answer: string; sources: SourceChunk[]; mode: TeachingMode }> {
-  const res = await fetch("/api/chat", {
+  const res = await fetch((import.meta.env.VITE_API_URL || "") + "/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message, mode, history }),
@@ -46,7 +46,7 @@ export async function sendChat(
 export async function uploadDocument(file: File): Promise<{ chunks_added: number; message: string }> {
   const form = new FormData();
   form.append("file", file);
-  const res = await fetch("/api/ingest", { method: "POST", body: form });
+  const res = await fetch((import.meta.env.VITE_API_URL || "") + "/api/ingest", { method: "POST", body: form });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail || "Upload failed");
@@ -55,12 +55,12 @@ export async function uploadDocument(file: File): Promise<{ chunks_added: number
 }
 
 export async function loadSampleMaterials(): Promise<{ message: string; total_chunks: number }> {
-  const res = await fetch("/api/ingest/sample", { method: "POST" });
+  const res = await fetch((import.meta.env.VITE_API_URL || "") + "/api/ingest/sample", { method: "POST" });
   if (!res.ok) throw new Error("Failed to load samples");
   return res.json();
 }
 
 export async function clearIndex(): Promise<void> {
-  const res = await fetch("/api/index", { method: "DELETE" });
+  const res = await fetch((import.meta.env.VITE_API_URL || "") + "/api/index", { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to clear index");
 }
